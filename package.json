@@ -10,5 +10,6 @@
   "license": "ISC",
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "start": "http-server -p 3000"
 }
