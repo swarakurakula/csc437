@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/page.css" />
+    <link rel="stylesheet" href="/styles/tokens.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <div class="logo">
+          <h1>Story Prompt Platform</h1>
+          <span>Create, like, and explore story prompts of all kinds!</span>
+      </div>
+      <nav class="nav">
+          <ul>
+              <li><a href="index.html">Browse Prompts</a></li>
+              <li><a href="create-prompt.html">Make a Prompt</a></li>
+              <li><a href="user-profile.html">My Profile</a></li>
+          </ul>
+      </nav>
+      <div class="user-info">
+          <h2>Welcome back, Jane!</h2>
+          <img src="janedoe.jpg" alt="Profile Picture" class="profile-picture" />
+      </div>
+  </header>
+
+  <section class="section">
+    <h2>Prompt</h2>
+    <div class="prompt">
+      <h3>What Happens When Fictional Characters Meet Their Creators?</h3>
+      <p><strong>Categories:</strong> Fiction, Comedy, Adventure</p>
+      <p>
+        <strong>Prompt:</strong>A mysterious portal brings literary characters
+        face-to-face with the authors who created them. Sherlock Holmes
+        questions Sir Arthur Conan Doyle’s ending choices, a superhero confronts
+        their creator about their tragic backstory, and villains protest their
+        portrayal. Can these creators handle the criticism, or will the
+        characters write a new chapter of their own?
+      </p>
+      <p><strong>Date Posted:</strong> October 18, 2024</p>
+    </div>
+
+    <section class="comment-section">
+      <h3>Comments</h3>
+
+      <div class="comment">
+        <p>
+          <strong>Alice:</strong> I can just picture villains forming a union to
+          fight for 'better backstories'—no more tragic orphan clichés, please!
+          They'd probably end up driving their creators crazy with demands.
+        </p>
+        <p><em>Posted on October 19, 2024</em></p>
+      </div>
+
+      <div class="comment">
+        <p>
+          <strong>Bob:</strong> The protagonist sits down with their creator and
+          demands closure. "I've been wandering in that cliffhanger for years!"
+          they exclaim. The creator explains that they were planning a sequel.
+          But when the character overhears a side character getting their own
+          spin-off, a rivalry brews. Soon, characters are 'auditioning' to
+          influence the author's next book, with the villains plotting to take
+          the lead.
+        </p>
+        <p><em>Posted on October 18, 2024</em></p>
+      </div>
+
+      <form class="comment-form">
+        <label for="comment-text">You:</label>
+        <textarea id="comment-text" name="comment-text" required></textarea>
+        <button type="submit">Submit</button>
+      </form>
+    </section>
+  </section>
+</body>
+</html>

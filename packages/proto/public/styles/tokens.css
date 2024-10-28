@@ -1,0 +1,21 @@
+/* created tokens for colors - values i might change later or values that repeat */
+
+:root {
+    --background-color: #f7e1d7;
+    --text-color: #000000;
+    --header-background-color: #869181;
+    --header-text-color: #fdf4ef;
+    --primary-color: #edafb8;
+    --form-background-color: #dedbd2;
+    --border-color: #869181;
+    --button-background-color: #869181;
+    --button-hover-color: #edafb8;
+    --link-color: #f37b8d;
+    --border-radius-small: 4px;
+    --border-radius-medium: 8px;
+    --border-radius-large: 10px;
+    --font-body: "Noto Sans", sans-serif;
+    --font-header: "Noto Serif", serif;
+    --font-size: 16px;
+  }
+  
