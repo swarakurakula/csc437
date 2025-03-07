@@ -1,21 +1,40 @@
 /* created tokens for colors - values i might change later or values that repeat */
 
 :root {
-    --background-color: #f7e1d7;
-    --text-color: #000000;
-    --header-background-color: #869181;
-    --header-text-color: #fdf4ef;
-    --primary-color: #edafb8;
-    --form-background-color: #dedbd2;
-    --border-color: #869181;
-    --button-background-color: #869181;
-    --button-hover-color: #edafb8;
-    --link-color: #f37b8d;
-    --border-radius-small: 4px;
-    --border-radius-medium: 8px;
-    --border-radius-large: 10px;
-    --font-body: "Noto Sans", sans-serif;
-    --font-header: "Noto Serif", serif;
-    --font-size: 16px;
-  }
-  
+  --background-color: #f7e1d7;
+  --text-color: #000000;
+  --header-background-color: #869181;
+  --header-text-color: #fdf4ef;
+  --primary-color: #edafb8;
+  --form-background-color: #dedbd2;
+  --border-color: #869181;
+  --button-background-color: #869181;
+  --button-hover-color: #edafb8;
+  --link-color: #f37b8d;
+  --border-radius-small: 4px;
+  --border-radius-medium: 8px;
+  --border-radius-large: 10px;
+  --font-body: "Noto Sans", sans-serif;
+  --font-header: "Noto Serif", serif;
+  --font-size: 16px;
+}
+
+/* Dark Mode Overrides */
+body.dark-mode {
+  --background-color: #1f1f1f; /* Dark background */
+  --text-color: #e0e0e0; /* Light text for contrast */
+  --header-background-color: #5a6d55; /* Darker header */
+  --header-text-color: #fdf4ef; /* Light header text */
+  --primary-color: #ff80a8; /* Soft red-pink for primary */
+  --form-background-color: #2e2e2e; /* Dark form background */
+  --border-color: #ff80a8;
+  --button-background-color: #5a6d55; /* Muted green for buttons */
+  --button-hover-color: #ff8c8c; /* Same as primary */
+  --link-color: #ff80a8; /* Lighter link color */
+  --border-radius-small: 4px;
+  --border-radius-medium: 8px;
+  --border-radius-large: 10px;
+  --font-body: "Noto Sans", sans-serif;
+  --font-header: "Noto Serif", serif;
+  --font-size: 16px;
+}

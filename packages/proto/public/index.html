@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="/styles/reset.css" />
     <link rel="stylesheet" href="/styles/page.css" />
@@ -8,76 +8,111 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
-</head>
-<body>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <script type="importmap">
+      {
+        "imports": {
+          "@calpoly/mustang": "https://unpkg.com/@calpoly/mustang"
+        }
+      }
+    </script>
+    <script type="module">
+      import { define } from "@calpoly/mustang";
+      import { StoryPromptElement } from "/scripts/story-prompt.js";
+
+      define({
+        "story-prompt": StoryPromptElement,
+      });
+    </script>
+  </head>
+  <body>
     <header class="header">
-        <div class="logo">
-            <h1>Story Prompt Platform</h1>
-            <span>Create, like, and explore story prompts of all kinds!</span>
-        </div>
-        <nav class="nav">
-            <ul>
-                <li><a href="index.html">Browse Prompts</a></li>
-                <li><a href="create-prompt.html">Make a Prompt</a></li>
-                <li><a href="user-profile.html">My Profile</a></li>
-            </ul>
-        </nav>
-        <div class="user-info">
-            <h2>Welcome back, Jane!</h2>
-            <img src="janedoe.jpg" alt="Profile Picture" class="profile-picture" />
-        </div>
+      <div class="logo">
+        <h1>Story Prompt Platform</h1>
+        <span>Create, like, and explore story prompts of all kinds!</span>
+      </div>
+      <nav class="nav">
+        <ul>
+          <li><a href="index.html">Browse Prompts</a></li>
+          <li><a href="create-prompt.html">Make a Prompt</a></li>
+          <li><a href="user-profile.html">My Profile</a></li>
+        </ul>
+      </nav>
+      <div class="user-info">
+        <h2>Welcome back, Jane!</h2>
+        <img src="janedoe.jpg" alt="Profile Picture" class="profile-picture" />
+      </div>
+
+      <label>
+        <input type="checkbox" id="dark-mode-toggle" autocomplete="off" />
+        Dark mode
+      </label>
+      <script src="styles/dark-mode.js"></script>
     </header>
 
     <section class="section">
       <h2>Browse Prompts</h2>
 
-      <article class="prompt">
-          <h3>What Happens When Fictional Characters Meet Their Creators?</h3>
-          <p><strong>Categories:</strong> Fiction, Comedy, Adventure</p>
-          <p><strong>Prompt:</strong>A mysterious portal brings literary characters face-to-face with the authors who created them. 
-              Sherlock Holmes questions Sir Arthur Conan Doyle’s ending choices, a superhero confronts their creator about their tragic backstory, and villains protest their portrayal. 
-              Can these creators handle the criticism, or will the characters write a new chapter of their own?</p>
-          <p><strong>Date Posted:</strong> October 18, 2024</p>
-          <div class="prompt-actions">
-              <button>🌀 Plot Twist</button>
-              <button>💡 Brainstorm Fuel</button>
-              <button>🎬 Story Material</button>
-              <button>👍 Like</button>
-              <button>👎 Dislike</button>
-              <button>⭐ Save</button>
-          </div>
+      <story-prompt>
+        <span slot="title"
+          >What Happens When Fictional Characters Meet Their Creators?</span
+        >
+        <span slot="categories">Fiction, Comedy, Adventure</span>
+        <p slot="prompt">
+          A mysterious portal brings literary characters face-to-face with the
+          authors who created them. Sherlock Holmes questions Sir Arthur Conan
+          Doyle’s ending choices, a superhero confronts their creator about
+          their tragic backstory, and villains protest their portrayal. Can
+          these creators handle the criticism, or will the characters write a
+          new chapter of their own?
+        </p>
+        <div slot="actions">
+          <button>🌀 Plot Twist</button>
+          <button>💡 Brainstorm Fuel</button>
+          <button>🎬 Story Material</button>
+          <button>👍 Like</button>
+          <button>👎 Dislike</button>
+          <button>⭐ Save</button>
+        </div>
+        <div slot="comments">
           <svg class="icon">
-              <use href="/icons/responses.svg#icon-comment" />
+            <use href="/icons/responses.svg#icon-comment"></use>
           </svg>
           <a href="comments.html">View all comments</a>
-      </article>
+        </div>
+      </story-prompt>
 
-      <article class="prompt">
-          <h3>What If Pizza Became the Currency of the World?</h3>
-          <p><strong>Categories:</strong> Fiction, Comedy</p>
-          <p><strong>Prompt:</strong>When global economies collapse, society decides on a new currency: pizza. 
-              But soon, pepperoni becomes gold, pineapple is considered a high-risk investment, and pizza vaults replace banks. 
-              What happens when one pizza chain takes control of the world's supply—and what are the lengths people will go to for a slice?</p>
-          <p><strong>Date Posted:</strong> October 12, 2024</p>
-          <div class="prompt-actions">
-              <button>
-                  <!-- <svg class="icon">
-                      <use href="/icons/responses.svg#icon-twist" />
-                  </svg>  -->
-                  🌀 Plot Twist</button>
-              <button>💡 Brainstorm Fuel</button>
-              <button>🎬 Story Material</button>
-              <button>
-                  Like</button>
-              <button>👎 Dislike</button>
-              <button>⭐ Save</button>
-          </div>
+      <story-prompt>
+        <span slot="title"
+          >What If Pizza Became the Currency of the World?</span
+        >
+        <span slot="categories">Fiction, Comedy</span>
+        <p slot="prompt">
+          When global economies collapse, society decides on a new currency:
+          pizza. But soon, pepperoni becomes gold, pineapple is considered a
+          high-risk investment, and pizza vaults replace banks. What happens
+          when one pizza chain takes control of the world's supply—and what are
+          the lengths people will go to for a slice?
+        </p>
+        <div slot="actions">
+          <button>🌀 Plot Twist</button>
+          <button>💡 Brainstorm Fuel</button>
+          <button>🎬 Story Material</button>
+          <button>👍 Like</button>
+          <button>👎 Dislike</button>
+          <button>⭐ Save</button>
+        </div>
+        <div slot="comments">
           <svg class="icon">
-              <use href="/icons/responses.svg#icon-comment" />
+            <use href="/icons/responses.svg#icon-comment"></use>
           </svg>
           <a>View all comments</a>
-      </article>
-  </section>
-</body>
+        </div>
+      </story-prompt>
+    </section>
+  </body>
 </html>
