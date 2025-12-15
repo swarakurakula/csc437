@@ -26,15 +26,25 @@ var import_mongoose = __toESM(require("mongoose"));
 var import_express = __toESM(require("express"));
 var import_story_prompt_svc = __toESM(require("./services/story-prompt-svc"));
 var import_story_prompt = require("./pages/story-prompt");
+var import_story_prompts = __toESM(require("./routes/story-prompts"));
+var import_auth = __toESM(require("./routes/auth"));
+var import_auth2 = require("./pages/auth");
 const app = (0, import_express.default)();
 const port = process.env.PORT || 3e3;
 const staticDir = process.env.STATIC || "public";
 (0, import_mongo.connect)("spp");
 app.use(import_express.default.static(staticDir));
+app.use(import_express.default.json());
+app.use("/auth", import_auth.default);
+app.use("/api/story-prompts", import_story_prompts.default);
 app.get("/hello", (req, res) => {
   res.send("Hello, World");
 });
-app.get("/story-prompt/:promptId", (req, res) => {
+app.get("/login", (req, res) => {
+  const page = new import_auth2.LoginPage();
+  res.set("Content-Type", "text/html").send(page.render());
+});
+app.get("/story-prompts/:promptId", (req, res) => {
   const { promptId } = req.params;
   const objectId = new import_mongoose.default.Types.ObjectId(promptId);
   import_story_prompt_svc.default.get(objectId).then((data) => {

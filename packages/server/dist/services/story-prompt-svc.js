@@ -60,4 +60,23 @@ function get(id) {
     throw err.message || "Error fetching story prompt";
   });
 }
-var story_prompt_svc_default = { index, get };
+function create(json) {
+  const t = new StoryPromptModel(json);
+  return t.save();
+}
+function update(userid, prompt) {
+  return StoryPromptModel.findOneAndUpdate({ _id: userid }, prompt, {
+    new: true
+  }).then((updated) => {
+    if (!updated) throw `${userid} not updated`;
+    else return updated;
+  });
+}
+function remove(userid) {
+  return StoryPromptModel.findOneAndDelete({ _id: userid }).then(
+    (deleted) => {
+      if (!deleted) throw `${userid} not deleted`;
+    }
+  );
+}
+var story_prompt_svc_default = { index, get, create, update, remove };

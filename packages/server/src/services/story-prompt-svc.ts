@@ -24,27 +24,49 @@ const StoryPromptSchema = new Schema<StoryPrompt>(
 const StoryPromptModel = model<StoryPrompt>("StoryPrompt", StoryPromptSchema);
 
 function index(): Promise<StoryPrompt[]> {
-    return StoryPromptModel.find();
-  }
+  return StoryPromptModel.find();
+}
 
-  function get(id: Types.ObjectId): Promise<StoryPrompt> {
-    console.log("Fetching story prompt with ID:", id); // Log the ID being fetched
-  
-    return StoryPromptModel.findById(id)
-      .then((prompt) => {
-        if (prompt) {
-          console.log("Fetched story prompt:", prompt); // Log the fetched document
-          return prompt;
-        }
-        throw new Error(`Prompt with ID ${id} not found`);
-      })
-      .catch((err) => {
-        console.error("Error fetching story prompt:", err); // Log the error
-        throw err.message || "Error fetching story prompt";
-      });
-  }
+function get(id: Types.ObjectId): Promise<StoryPrompt> {
+  console.log("Fetching story prompt with ID:", id); // Log the ID being fetched
 
-  export default { index, get };
+  return StoryPromptModel.findById(id)
+    .then((prompt) => {
+      if (prompt) {
+        console.log("Fetched story prompt:", prompt); // Log the fetched document
+        return prompt;
+      }
+      throw new Error(`Prompt with ID ${id} not found`);
+    })
+    .catch((err) => {
+      console.error("Error fetching story prompt:", err); // Log the error
+      throw err.message || "Error fetching story prompt";
+    });
+}
+
+function create(json: StoryPrompt): Promise<StoryPrompt> {
+  const t = new StoryPromptModel(json);
+  return t.save();
+}
+
+function update(userid: Types.ObjectId, prompt: StoryPrompt): Promise<StoryPrompt> {
+  return StoryPromptModel.findOneAndUpdate({ _id: userid }, prompt, {
+    new: true
+  }).then((updated) => {
+    if (!updated) throw `${userid} not updated`;
+    else return updated as StoryPrompt;
+  });
+}
+
+function remove(userid: String): Promise<void> {
+  return StoryPromptModel.findOneAndDelete({ _id: userid }).then(
+    (deleted) => {
+      if (!deleted) throw `${userid} not deleted`;
+    }
+  );
+}
+
+export default { index, get, create, update, remove };
 
 // const storyPrompts: Record<string, StoryPrompt> = {
 //   charactersMeetCreators: {
