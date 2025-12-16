@@ -32,31 +32,56 @@ __export(story_prompts_exports, {
 });
 module.exports = __toCommonJS(story_prompts_exports);
 var import_express = __toESM(require("express"));
-var import_mongoose = __toESM(require("mongoose"));
+var import_mongoose = require("mongoose");
 var import_story_prompt_svc = __toESM(require("../services/story-prompt-svc"));
 const router = import_express.default.Router();
 router.get("/", (_, res) => {
-  import_story_prompt_svc.default.index().then((list) => res.json(list)).catch((err) => res.status(500).send(err));
+  import_story_prompt_svc.default.index().then((list) => res.json(list)).catch((err) => {
+    console.error("Error listing prompts:", err);
+    res.status(500).send("Error listing story prompts");
+  });
 });
-router.get("/:userid", (req, res) => {
-  const { userid } = req.params;
-  const objectId = new import_mongoose.default.Types.ObjectId(userid);
-  import_story_prompt_svc.default.get(objectId).then((prompt) => res.json(prompt)).catch((err) => res.status(404).send(err));
+router.get("/:id", (req, res) => {
+  const { id } = req.params;
+  let objectId;
+  try {
+    objectId = new import_mongoose.Types.ObjectId(id);
+  } catch {
+    res.status(400).send("Invalid prompt id");
+    return;
+  }
+  import_story_prompt_svc.default.get(objectId).then((prompt) => res.json(prompt)).catch((err) => {
+    console.error("Error fetching prompt:", err);
+    res.status(404).send(err);
+  });
 });
 router.post("/", (req, res) => {
   const newPrompt = req.body;
-  import_story_prompt_svc.default.create(newPrompt).then(
-    (prompt) => res.status(201).json(prompt)
-  ).catch((err) => res.status(500).send(err));
+  import_story_prompt_svc.default.create(newPrompt).then((prompt) => res.status(201).json(prompt)).catch((err) => {
+    console.error("Error creating prompt:", err);
+    res.status(500).send("Error creating story prompt");
+  });
 });
-router.put("/:userid", (req, res) => {
-  const { userid } = req.params;
+router.put("/:id", (req, res) => {
+  const { id } = req.params;
   const newPrompt = req.body;
-  const objectId = new import_mongoose.default.Types.ObjectId(userid);
-  import_story_prompt_svc.default.update(objectId, newPrompt).then((prompt) => res.json(prompt)).catch((err) => res.status(404).end());
+  let objectId;
+  try {
+    objectId = new import_mongoose.Types.ObjectId(id);
+  } catch {
+    res.status(400).send("Invalid prompt id");
+    return;
+  }
+  import_story_prompt_svc.default.update(objectId, newPrompt).then((prompt) => res.json(prompt)).catch((err) => {
+    console.error("Error updating prompt:", err);
+    res.status(404).send(err);
+  });
 });
-router.delete("/:userid", (req, res) => {
-  const { userid } = req.params;
-  import_story_prompt_svc.default.remove(userid).then(() => res.status(204).end()).catch((err) => res.status(404).send(err));
+router.delete("/:id", (req, res) => {
+  const { id } = req.params;
+  import_story_prompt_svc.default.remove(id).then(() => res.status(204).end()).catch((err) => {
+    console.error("Error deleting prompt:", err);
+    res.status(404).send(err);
+  });
 });
 var story_prompts_default = router;

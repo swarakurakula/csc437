@@ -44,8 +44,8 @@ export class StoryPromptPage {
       comments,
     } = this.data;
 
-    const actionButtons = actions.map((action) => this.renderAction(action));
-    console.log(actionButtons);
+    // const actionButtons = actions.map((action) => this.renderAction(action));
+    // console.log(actionButtons);
 
     return html`
       <body>
@@ -62,7 +62,7 @@ export class StoryPromptPage {
             </ul>
           </nav>
           <div class="user-info">
-            <h2>Welcome back, Jane!</h2>
+            <h2>Welcome back, Jpp!</h2>
             <img src="janedoe.jpg" alt="Profile Picture" class="profile-picture" />
           </div>
 
@@ -83,12 +83,9 @@ export class StoryPromptPage {
               <p>${prompt}</p>
             </article>
             <footer>
-              <div class="actions">${actionButtons}</div>
-              <div class="comments">
-                <a href="${comments.linkHref}">
-                  <svg class="icon"><use href="${comments.icon}"></use></svg>
-                  ${comments.linkText}
-                </a>
+              
+           
+                
               </div>
             </footer>
           </section>

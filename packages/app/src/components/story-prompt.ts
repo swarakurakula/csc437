@@ -61,6 +61,8 @@ export class StoryPromptElement extends HTMLElement {
         if (this.form) {
           this.form.init = json; // populate mu-form
         }
+        // ✅ mark as loaded so the view becomes visible
+        this.setAttribute("loaded", "");
       })
       .catch((error) =>
         console.log(`Failed to render data ${url}:`, error)
@@ -113,6 +115,7 @@ export class StoryPromptElement extends HTMLElement {
           this.form.init = json; // refresh the form with the saved data
         }
         this.mode = "view";
+        this.setAttribute("loaded", "");
       })
       .catch((err) => console.error("PUT error:", err));
   }
@@ -122,22 +125,20 @@ export class StoryPromptElement extends HTMLElement {
       <section class="view">
         <button id="edit">Edit</button>
         <article class="prompt">
-          <h3><slot name="title">Default Title</slot></h3>
+          <h3><slot name="title"></slot></h3>
           <p>
             <strong>Categories:</strong>
-            <slot name="categories">No categories</slot>
+            <slot name="categories"></slot>
           </p>
           <p>
             <strong>Prompt:</strong>
-            <slot name="prompt">Default prompt text</slot>
+            <slot name="prompt"></slot>
           </p>
           <div class="actions">
             <slot name="actions"></slot>
           </div>
           <div class="comments">
-            <slot name="comments">
-              <a href="#" class="comment-link">View all comments</a>
-            </slot>
+            <slot name="comments"></slot>
           </div>
         </article>
       </section>
@@ -158,7 +159,6 @@ export class StoryPromptElement extends HTMLElement {
           <textarea name="prompt"></textarea>
         </label>
 
-        <!-- make sure there is a submit button so mu-form can submit -->
         <button type="submit">Save</button>
       </mu-form>
     </template>
@@ -168,6 +168,12 @@ export class StoryPromptElement extends HTMLElement {
     :host {
       display: contents;
     }
+
+    /* 🔥 Hide the view until data has loaded */
+    :host(:not([loaded])) section.view {
+      display: none;
+    }
+
     :host([mode="edit"]),
     :host([mode="new"]) {
       --display-view-none: none;

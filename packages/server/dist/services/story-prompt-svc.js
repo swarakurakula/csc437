@@ -27,21 +27,36 @@ const StoryPromptSchema = new import_mongoose.Schema(
     title: { type: String, required: true, trim: true },
     categories: { type: String, required: true, trim: true },
     prompt: { type: String, required: true, trim: true },
-    actions: [
-      {
-        label: { type: String, required: true, trim: true },
-        emoji: { type: String, required: true, trim: true }
-      }
-    ],
+    // Make actions optional, default to empty array
+    actions: {
+      type: [
+        {
+          label: { type: String, trim: true },
+          emoji: { type: String, trim: true }
+        }
+      ],
+      default: []
+      // no actions required at create time
+    },
+    // Make comments optional and give sensible defaults
     comments: {
-      icon: { type: String, required: true, trim: true },
-      linkText: { type: String, required: true, trim: true },
-      linkHref: { type: String, trim: true }
-      // Optional
+      icon: {
+        type: String,
+        trim: true,
+        default: "/icons/responses.svg#icon-comment"
+      },
+      linkText: {
+        type: String,
+        trim: true,
+        default: "View all comments"
+      },
+      linkHref: {
+        type: String,
+        trim: true
+      }
     }
   },
   { collection: "prompts" }
-  // Specify the MongoDB collection name
 );
 const StoryPromptModel = (0, import_mongoose.model)("StoryPrompt", StoryPromptSchema);
 function index() {
@@ -64,19 +79,17 @@ function create(json) {
   const t = new StoryPromptModel(json);
   return t.save();
 }
-function update(userid, prompt) {
-  return StoryPromptModel.findOneAndUpdate({ _id: userid }, prompt, {
+function update(id, prompt) {
+  return StoryPromptModel.findOneAndUpdate({ _id: id }, prompt, {
     new: true
   }).then((updated) => {
-    if (!updated) throw `${userid} not updated`;
+    if (!updated) throw `${id} not updated`;
     else return updated;
   });
 }
-function remove(userid) {
-  return StoryPromptModel.findOneAndDelete({ _id: userid }).then(
-    (deleted) => {
-      if (!deleted) throw `${userid} not deleted`;
-    }
-  );
+function remove(id) {
+  return StoryPromptModel.findOneAndDelete({ _id: id }).then((deleted) => {
+    if (!deleted) throw `${id} not deleted`;
+  });
 }
 var story_prompt_svc_default = { index, get, create, update, remove };

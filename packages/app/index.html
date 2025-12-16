@@ -13,10 +13,12 @@
   <body>
     <mu-history provides="spp:history">
       <mu-auth provides="spp:auth" redirect="./login.html">
-        <article class="page">
-          <story-header></story-header>
-          <mu-switch></mu-switch>
-        </article>
+        <mu-store provides="spp:model">
+          <article class="page">
+            <story-header></story-header>
+            <mu-switch></mu-switch>
+          </article>
+        </mu-store>
       </mu-auth>
     </mu-history>
   </body>

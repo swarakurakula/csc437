@@ -3,8 +3,8 @@ export interface StoryPrompt {
   title: string;
   categories: string;
   prompt: string;
-  actions: Array<PromptAction>;
-  comments: Comments;
+  actions?: Array<PromptAction>;
+  comments?: Comments;
 }
 
 export interface PromptAction {

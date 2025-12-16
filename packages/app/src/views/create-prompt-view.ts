@@ -1,81 +1,82 @@
 // src/views/create-prompt-view.ts
-import { css, html, LitElement } from "lit";
+import { View, Form, History } from "@calpoly/mustang";
+import { html, css } from "lit";
+import { Model } from "../model";
+import { Msg, NewStoryPrompt } from "../messages";
 
-export class CreatePromptViewElement extends LitElement {
+export class CreatePromptViewElement extends View<Model, Msg> {
+  constructor() {
+    // must match <mu-store provides="spp:model">
+    super("spp:model");
+  }
+
   render() {
     return html`
       <main class="page">
         <h2>Make a Prompt</h2>
-        <section class="create-prompt section">
-          <form>
-            <label for="title">Title:</label>
-            <input
-              type="text"
-              id="title"
-              name="title"
-              required
-              placeholder="Enter the prompt title."
-            />
 
-            <label for="categories">Categories:</label>
-            <select id="categories" name="categories" multiple required>
-              <option value="Comedy">Comedy</option>
-              <option value="Mystery">Mystery</option>
-              <option value="Sci-Fi">Sci-Fi</option>
-              <option value="Fantasy">Fantasy</option>
-              <option value="Adventure">Adventure</option>
-              <option value="Horror">Horror</option>
-              <option value="Romance">Romance</option>
-              <option value="Thriller">Thriller</option>
-              <option value="Drama">Drama</option>
-              <option value="Historical">Historical</option>
-              <option value="Fiction">Fiction</option>
-              <option value="Non-Fiction">Non-Fiction</option>
-            </select>
-            <p>
-              <small>
-                Hold down Ctrl (Windows) or Command (Mac) to select multiple
-                categories.
-              </small>
-            </p>
+        <mu-form
+          class="create"
+          @mu-form:submit=${this._handleSubmit}
+        >
+          <label>
+            <span>Title</span>
+            <input name="title" required />
+          </label>
 
-            <label for="prompt">Prompt:</label>
-            <textarea id="prompt" name="description" required></textarea>
+          <label>
+            <span>Categories</span>
+            <input name="categories" />
+          </label>
 
-            <button type="submit">Submit</button>
-          </form>
-        </section>
+          <label>
+            <span>Prompt</span>
+            <textarea name="prompt" required></textarea>
+          </label>
+          <!-- 🔥 No extra <button>; mu-form will add its own submit button -->
+        </mu-form>
       </main>
     `;
   }
 
+  private _handleSubmit(event: Form.SubmitEvent<NewStoryPrompt>) {
+    const prompt = event.detail;
+
+    this.dispatchMessage([
+      "prompt/create",
+      {
+        prompt,
+        onSuccess: (newId: string) =>
+          History.dispatch(this, "history/navigate", {
+            href: `/app/story-prompts/${newId}`
+          }),
+        onFailure: (err: Error) =>
+          console.error("Failed to create prompt:", err)
+      }
+    ]);
+  }
+
   static styles = css`
-    .section {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
-      margin-top: 20px;
-    }
-
-    h2 {
-      margin-top: 20px;
-    }
-
-    .create-prompt {
+    .create {
       max-width: 600px;
       margin: 20px auto;
       background-color: var(--form-background-color);
       border: 2px solid var(--border-color);
       padding: 20px;
       border-radius: var(--border-radius-large);
+      display: grid;
+      gap: 1rem;
     }
 
-    input[type="text"],
-    select,
+    label {
+      display: grid;
+      gap: 0.25rem;
+    }
+
+    input,
     textarea {
-      width: 95%;
+      width: 100%;
       padding: 10px;
-      margin: 10px 0;
       border: 1px solid var(--border-color);
       border-radius: var(--border-radius-medium);
       font-size: var(--font-size);
@@ -83,7 +84,8 @@ export class CreatePromptViewElement extends LitElement {
       font-family: var(--font-body);
     }
 
-    button {
+    /* Style the submit button that mu-form injects */
+    .create button[type="submit"] {
       background-color: var(--button-background-color);
       color: var(--header-text-color);
       padding: 10px 15px;
@@ -91,17 +93,11 @@ export class CreatePromptViewElement extends LitElement {
       border-radius: var(--border-radius-small);
       cursor: pointer;
       font-size: var(--font-size);
+      justify-self: start;
     }
 
-    button:hover {
+    .create button[type="submit"]:hover {
       background-color: var(--button-hover-color);
-    }
-
-    p {
-      color: var(--text-color);
-      font-family: var(--font-body);
-      font-size: var(--font-size);
-      margin: 10px 0;
     }
   `;
 }
