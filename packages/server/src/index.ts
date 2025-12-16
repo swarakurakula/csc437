@@ -8,6 +8,9 @@ import prompts from "./routes/story-prompts";
 import auth, { authenticateUser } from "./routes/auth";
 import { LoginPage } from "./pages/auth";
 
+import fs from "node:fs/promises";
+import path from "path";
+
 const app = express();
 const port = process.env.PORT || 3000;
 const staticDir = process.env.STATIC || "public";
@@ -55,6 +58,13 @@ app.get("/story-prompts/:promptId", (req: Request, res: Response) => {
       console.error("Error fetching story prompt:", err);
       res.status(500).send("Internal Server Error");
     });
+});
+
+app.use("/app", (req: Request, res: Response) => {
+  const indexHtml = path.resolve(staticDir, "index.html");
+  fs.readFile(indexHtml, { encoding: "utf8" }).then((html) =>
+    res.send(html)
+  );
 });
 
 app.listen(port, () => {

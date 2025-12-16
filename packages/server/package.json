@@ -2,19 +2,26 @@
   "name": "server",
   "version": "1.0.0",
   "main": "dist/index.js",
-  "scripts": {
-    "dev": "nodemon",
-    "build": "npx etsc",
-    "start": "npm run build && npm run start:node",
-    "start:node": "node dist/index.js",
-    "start:proto": "cross-env STATIC=../proto/public npm run start",
-    "check": "tsc --noEmit"
+  "exports": {
+    "./models": {
+      "import": "./src/models/index.ts"
+    }
   },
+  "scripts": {
+  "dev": "nodemon",
+  "build": "npx etsc",
+  "start": "npm run build && npm run start:node",
+  "start:api": "cross-env STATIC=./public npm run start",
+  "start:app": "cross-env STATIC=../app/dist npm run start",
+  "start:node": "node dist/index.js",
+  "start:proto": "cross-env STATIC=../proto/public npm run start",
+  "check": "tsc --noEmit"
+},
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@calpoly/mustang": "^1.0.15",
+    "@calpoly/mustang": "1.0.15",
     "bcryptjs": "^3.0.2",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
